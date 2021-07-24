@@ -1,0 +1,32 @@
+描述
+利用git.bash创建本地仓库，然后连接git-hub上的仓库遇见的问题和解决方法。
+首先注册github账号和创建一个repository（例如woxiangxue）
+下载安装git软件，点击Git-GUI中的help-->show ssh key生成自己的密钥，然后复制添加到github设置里面的ssh key中的new creat ssh，成功后进行一下一步。
+找一个目录或者桌面上（在哪都行）创建一个目录作为本地仓库，例如win10上右键创建Local_repository目录，选中目录后右键选择Git Bash Here进入命令窗口。
+接下来配置本地仓库，输入：git init 回车，在输入：git config –global user.name “你的Github用户名” 回车，又输入：git config –global user.name “你的Github用户名” 回车。
+然后输入：ssh -T git@github.com 回车，显示Hi “你的Github用户名”! You've successfully authenticated, but GitHub does not provide shell access.进行下一步。
+本地仓库（Local_repository）中建立一个文件用于测试，例如我这个目录下的HL.txt就是测试文件。
+在接下来就是输入：git add .(注意add和.之间有空格) 回车，在输入：git commit -m “HL.txt”(注意引号为英文状态) 回车，显示：[master 22d9fd3] HL.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-) create mode 100644 HL.txt表明成功。
+ 最后输入：git push -u origin master 回车，显示下面一大串表明连接成功，可以取自己github账号的woxiangxue仓库下可以看到HL.txt这个测试文件表明成功。
+"""
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (8/8), 866 bytes | 216.00 KiB/s, done.
+Total 8 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), done.
+To github.com:xianyu2hao/Personal-blog.github.io.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+"""
+注意：此时会经常出现：ERROR: Repository not found.
+fatal: Could not read from remote repository.
+Please make sure you have the correct access right and the repository exists.说明连接有问题。
+此时输入：git remote -v 显示：origin  git@github.com:dustdawn/test.git (fetch) 和origin  git@github.com:dustdawn/test.git (push)，表明你的本地仓库和这个地址相连
+，这和你的仓库不一样肯定连不上，如更改后面的git@github.com:dustdawn/test.git类似文档，这时候输入：git remote set-url origin "远程仓库的地址"，# 远程仓库地址在你登陆的github上
+选择woxiangxue仓库，进入后很容易发现一个地址，点击SSH然后复制这个地址替换“远程仓库地址”（回车）就行了。再次输入：git push -u origin master 回车，成功连接，去github查看测试文件。
+
+#再次提交文件时，遇到! [rejected] master -> master (fetch first) error: failed to push some refs to ' 。。。'，此时出现这个问题是因为github中的README.md文件不在本地代码目录中
+，可以通过如下命令进行代码合并，输入：git pull --rebase origin master 回车，再次提交即可。
