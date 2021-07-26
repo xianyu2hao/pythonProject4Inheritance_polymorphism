@@ -28,3 +28,5 @@ chang_wei.play_with_dog(wang_cai)
 print("_"*40)
 XTQ = Xiao_tian_quan("哮天犬")
 chang_wei.play_with_dog(XTQ)
+
+# 不同的对象，调用相同的方法，产生不同状态，叫多态
